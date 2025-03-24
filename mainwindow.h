@@ -71,5 +71,8 @@ private:
     QMessageBox msgBox;
     QShortcut *keyCtrlD;
     QKeyEvent *event2;
+
+    QVector<int>m;
+    int indx;
 };
 #endif // MAINWINDOW_H

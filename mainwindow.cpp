@@ -9,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),currentTrackIndex(-1)
+    , ui(new Ui::MainWindow),currentTrackIndex(-1),indx(-1)
 {
     ui->setupUi(this);
 
@@ -72,6 +72,8 @@ void MainWindow::pathFile()
             MPlayer->setSource(QUrl::fromLocalFile(filePath));
             MPlayer->play();
             currentTrackIndex = mass.indexOf(filePath);
+            m.append(currentTrackIndex);
+            indx++;
             currentTreck();
         }
     }
@@ -144,31 +146,37 @@ void MainWindow::on_Next_clicked()
     try {
         if(play==true){
             if(ran==false){
-                if (currentTrackIndex+1 < mass.size()) {
+                if (indx+1 < mass.size()) {
                     currentTrackIndex++;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.append(currentTrackIndex);
+                    indx++;
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                     MPlayer->play();
 
                 } else {
                     currentTrackIndex = 0;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.clear();
+                    m.append(0);
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                     MPlayer->play();
                 }
             }else{
-                if (currentTrackIndex+1 < mass.size()) {
+                if (indx+1 < mass.size()) {
                     rand();
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                     MPlayer->play();
 
                 } else {
                     currentTrackIndex = 0;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.clear();
+                    m.append(0);
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                     MPlayer->play();
@@ -178,24 +186,30 @@ void MainWindow::on_Next_clicked()
             if(ran==false){
                 if (currentTrackIndex+1 < mass.size()) {
                     currentTrackIndex++;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.append(currentTrackIndex);
+                    indx++;
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                 } else {
                     currentTrackIndex = 0;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.clear();
+                    m.append(0);
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                 }
             }else{
-                if (currentTrackIndex+1 < mass.size()) {
+                if (indx+1 < mass.size()) {
                     rand();
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                 } else {
                     currentTrackIndex = 0;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                    m.clear();
+                    m.append(0);
+                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                     updateTrackLabel();
                     currentTreck();
                 }
@@ -211,26 +225,26 @@ void MainWindow::on_back_clicked()
 {
     try {
         if(play==true){
-        if (currentTrackIndex > 0) {
-            currentTrackIndex--;
-            MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+        if (indx > 0) {
+            indx--;
+            MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
             updateTrackLabel();
             currentTreck();
             MPlayer->play();
         } else {
-            MPlayer->setSource(QUrl::fromLocalFile(mass[0]));
+            MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
             currentTreck();
             updateTrackLabel();
             MPlayer->play();
         }
         }else{
-            if (currentTrackIndex > 0) {
-                currentTrackIndex--;
-                MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+            if (indx > 0) {
+                indx--;
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 updateTrackLabel();
                 currentTreck();
             } else {
-                MPlayer->setSource(QUrl::fromLocalFile(mass[0]));
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 currentTreck();
                 updateTrackLabel();
             }
@@ -244,15 +258,19 @@ void MainWindow::onMediaStatusChanged(QMediaPlayer::MediaStatus status)
 {
     if (status == QMediaPlayer::EndOfMedia) {
         if(ran==false){
-            if (currentTrackIndex+1 < mass.size()) {
+            if (indx+1 < mass.size()) {
                 currentTrackIndex++;
-                MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                m.append(currentTrackIndex);
+                indx++;
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 updateTrackLabel();
                 currentTreck();
                 MPlayer->play();
             } else {
+                m.clear();
+                m.append(0);
                 currentTrackIndex = 0;
-                MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 updateTrackLabel();
                 currentTreck();
                 MPlayer->play();
@@ -260,14 +278,16 @@ void MainWindow::onMediaStatusChanged(QMediaPlayer::MediaStatus status)
         }
         else{
             rand();
-            if (currentTrackIndex < mass.size()) {
-                MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+            if (indx+1 < mass.size()) {
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 updateTrackLabel();
                 currentTreck();
                 MPlayer->play();
             } else {
                 currentTrackIndex = 0;
-                MPlayer->setSource(QUrl::fromLocalFile(mass[currentTrackIndex]));
+                m.clear();
+                m.append(0);
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
                 updateTrackLabel();
                 currentTreck();
                 MPlayer->play();
@@ -328,7 +348,7 @@ void MainWindow::positionChanged(qint64 progress)
 
 void MainWindow::updateTrackLabel() {
     if (currentTrackIndex >= 0 && currentTrackIndex < mass.size()) {
-        QString trackName = QFileInfo(mass[currentTrackIndex]).fileName();
+        QString trackName = QFileInfo(mass[m.at(indx)]).fileName();
         ui->nameL->setText(trackName);
     }
 }
@@ -380,7 +400,7 @@ void MainWindow::lenTreck()
 
 void MainWindow::currentTreck()
 {
-    int currTreck = currentTrackIndex+1;
+    int currTreck = m.at(indx)+1;
     QString s = QString::number(currTreck);
     ui->trek->setText(s);
 }
@@ -391,6 +411,8 @@ void MainWindow::rand()
     MPlayer->setSource(QUrl::fromLocalFile(mass[value]));
     MPlayer->play();
     currentTrackIndex = value;
+    m.append(currentTrackIndex);
+    indx++;
     updateTrackLabel();
     currentTreck();
 }
@@ -436,13 +458,18 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
             return;
         }
 
-        QString filePath = mass[currentTrackIndex];
+        QString filePath = mass[currentTrackIndex.];
         QFileInfo fileInfo(filePath);
 
         MPlayer->setSource(QUrl::fromLocalFile(fileInfo.absoluteFilePath()));
+        m.clear();
+        indx= -1;
+        m.append(currentTrackIndex);
+        indx++;
+
 
         ui->nameL->setText(fileInfo.fileName());
-        ui->trek->setText(QString::number(currentTrackIndex + 1));
+        ui->trek->setText(QString::number(m.at(indx) + 1));
 
         MPlayer->play();
     }
