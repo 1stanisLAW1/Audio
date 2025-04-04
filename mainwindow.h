@@ -52,14 +52,20 @@ private slots:
 
     void initializeComboBox();
 
-    void on_pushButton_clicked();
-
     void on_lenSlid_sliderMoved(int position);
+    void on_pushButton_2_clicked();
+    void addStyle();
+    void updateTheme();
+
+    void saveTheme();
+    void loadTheme();
+
+    void on_pushButton_3_clicked();
 
 private:
     void UpdataDur(qint64 duration);
     Ui::MainWindow *ui;
-    QMenu *menu = new QMenu(this);
+    QMenu *menu;
     QAudioOutput *ao;
     QMediaPlayer *MPlayer;
     QVector<QString> mass;
@@ -67,12 +73,18 @@ private:
     bool Is_Muted = false;
     bool ran = false;
     bool play = true;
+    bool repeatEnabled = true;
+    bool them = false;
     qint64 Mduration;
-    QMessageBox msgBox;
+    QMessageBox* msgBox;
     QShortcut *keyCtrlD;
     QKeyEvent *event2;
 
     QVector<int>m;
     int indx;
+    QVector<QString>styleVector;
+    QVector<QString>styleWhiteBtn;
+
+    QMenu *file;
 };
 #endif // MAINWINDOW_H
