@@ -728,8 +728,8 @@ void MainWindow::updateTheme()
 
 void MainWindow::saveTheme()
 {
-    //QString executablePath = QCoreApplication::applicationDirPath();
-    QString filePath = "C:/Users/Neofit/AudioP/z/them.txt";
+    QString executablePath = QCoreApplication::applicationDirPath();
+    QString filePath = executablePath + "/../z/them.txt";
     QFile file(filePath);
 
     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
