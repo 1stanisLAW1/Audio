@@ -1,4 +1,4 @@
-QT       += core gui multimedia widgets
+QT       += core gui multimedia widgets texttospeech
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -380,6 +380,7 @@ Makefile: AudioP.pro ../../../Qt/6.7.2/llvm-mingw_64/mkspecs/win32-clang-g++/qma
 		../../../Qt/6.7.2/llvm-mingw_64/mkspecs/features/yacc.prf \
 		../../../Qt/6.7.2/llvm-mingw_64/mkspecs/features/lex.prf \
 		AudioP.pro \
+		../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6TextToSpeech.prl \
 		../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Multimedia.prl \
 		../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Widgets.prl \
 		../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Gui.prl \
@@ -698,6 +699,7 @@ Makefile: AudioP.pro ../../../Qt/6.7.2/llvm-mingw_64/mkspecs/win32-clang-g++/qma
 ../../../Qt/6.7.2/llvm-mingw_64/mkspecs/features/yacc.prf:
 ../../../Qt/6.7.2/llvm-mingw_64/mkspecs/features/lex.prf:
 AudioP.pro:
+../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6TextToSpeech.prl:
 ../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Multimedia.prl:
 ../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Widgets.prl:
 ../../../Qt/6.7.2/llvm-mingw_64/lib/Qt6Gui.prl:

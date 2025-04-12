@@ -12,8 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow),currentTrackIndex(-1),indx(-1)
 {
     ui->setupUi(this);
+    ui->comboBox->clear();
     menu = new QMenu(this);
     msgBox = new QMessageBox(this);
+
+    speach = new QTextToSpeech(this);
+    speach->setLocale(QLocale::English);
+    speach->setVolume(0.5);
+    qDebug() << "Available engines:" << QTextToSpeech::availableEngines();
 
     MPlayer = new QMediaPlayer(this);
     ao = new QAudioOutput(this);
@@ -37,6 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
     //connect(MPlayer,&QMediaPlayer::positionChanged,this,&::MainWindow::on_lenSlid_sliderMoved);
 
     ui->volumeSlid->setValue(14);
+
+    updateDevice();
+
 }
 
 MainWindow::~MainWindow()
@@ -92,7 +101,7 @@ void MainWindow::on_play_clicked()
 {
     play = !play;
 
-    if(currentTrackIndex<0){
+    if(m.size()<0){
         if(them == false){
             if(play){
                 ui->play->setStyleSheet(styleVector.at(1));
@@ -148,7 +157,6 @@ void MainWindow::on_play_clicked()
                 }
             }
     }
-    qDebug()<<"------------------------------------"<<play<<"-------------------------------------------------------";
 }
 
 
@@ -184,80 +192,76 @@ void MainWindow::on_stop_clicked()
 
 void MainWindow::on_Next_clicked()
 {
-    try {
-        if(play==true){
-            if(ran==false){
-                if (indx+1 < mass.size()) {
-                    currentTrackIndex++;
-                    m.append(currentTrackIndex);
-                    indx++;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                    MPlayer->play();
+    if(play==true){
+        if(ran==false){
+            if (indx+1 < mass.size()) {
+                currentTrackIndex++;
+                m.append(currentTrackIndex);
+                indx++;
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+                MPlayer->play();
 
-                } else {
-                    currentTrackIndex = 0;
-                    m.clear();
-                    m.append(0);
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                    MPlayer->play();
-                }
-            }else{
-                if (indx+1 < mass.size()) {
-                    rand();
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                    MPlayer->play();
-
-                } else {
-                    currentTrackIndex = 0;
-                    m.clear();
-                    m.append(0);
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                    MPlayer->play();
-                }
+            } else {
+                currentTrackIndex = 0;
+                m.clear();
+                m.append(0);
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+                MPlayer->play();
             }
         }else{
-            if(ran==false){
-                if (currentTrackIndex+1 < mass.size()) {
-                    currentTrackIndex++;
-                    m.append(currentTrackIndex);
-                    indx++;
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                } else {
-                    currentTrackIndex = 0;
-                    m.clear();
-                    m.append(0);
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                }
-            }else{
-                if (indx+1 < mass.size()) {
-                    rand();
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                } else {
-                    currentTrackIndex = 0;
-                    m.clear();
-                    m.append(0);
-                    MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
-                    updateTrackLabel();
-                    currentTreck();
-                }
+            if (indx+1 < mass.size()) {
+                rand();
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+                MPlayer->play();
+
+            } else {
+                currentTrackIndex = 0;
+                m.clear();
+                m.append(0);
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+                MPlayer->play();
             }
         }
-    } catch (std::exception e) {
-        qDebug()<<e.what();
+    }else{
+        if(ran==false){
+            if (currentTrackIndex+1 < mass.size()) {
+                currentTrackIndex++;
+                m.append(currentTrackIndex);
+                indx++;
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+            } else {
+                currentTrackIndex = 0;
+                m.clear();
+                m.append(0);
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+            }
+        }else{
+            if (indx+1 < mass.size()) {
+                rand();
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+            } else {
+                currentTrackIndex = 0;
+                m.clear();
+                m.append(0);
+                MPlayer->setSource(QUrl::fromLocalFile(mass[m.at(indx)]));
+                updateTrackLabel();
+                currentTreck();
+            }
+        }
     }
 }
 
@@ -404,7 +408,9 @@ void MainWindow::on_mute_clicked()
     if(them){
         if(Is_Muted == false){
             ui->mute->setStyleSheet(styleWhiteBtn.at(0));
-            ui->mute->setText("mute");
+            ui->mute->setText("unmute");
+             speach->say("mute");
+            qDebug()<<"mute";
             Is_Muted = true;
             ao->setMuted(true);
         }
@@ -417,7 +423,9 @@ void MainWindow::on_mute_clicked()
     }else{
         if(Is_Muted == false){
             ui->mute->setStyleSheet(styleVector.at(0));
-            ui->mute->setText("mute");
+            ui->mute->setText("unmute");
+             speach->say("mute");
+            qDebug()<<"mute";
             Is_Muted = true;
             ao->setMuted(true);
         }
@@ -535,6 +543,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 
 void MainWindow::initializeComboBox()
 {
+    ui->comboBox->addItem("Select a song");
     for (const QString &filePath : mass) {
         QFileInfo fileInfo(filePath);
         ui->comboBox->addItem(fileInfo.fileName());
@@ -596,13 +605,13 @@ void MainWindow::addStyle()
                        "border-radius:14px;max-height:25px;max-width:25px;min-height:25px;min-width:25px;}");
 
     styleVector.append("QSlider::groove:horizontal{"
-                         "height:10px;width:420;background:rgb(255, 255, 255);border-radius:5px;}"
+                         "height:10px;width:521;background:rgb(255, 255, 255);border-radius:5px;}"
                          "QSlider::handle:horizontal{"
-                        "height:20px;width:20;background:rgb(255, 128, 0);border-radius:10px;margin:-7px -7px;}");
+                        "height:20px;width:20;background:rgb(255, 128, 0);border-radius:10px;margin:-5px -5px;}");
     styleVector.append("QSlider::groove:horizontal{"
-                       "height:10px;width:170;background:rgb(255, 255, 255);border-radius:5px;}"
+                       "height:10px;width:220;background:rgb(255, 255, 255);border-radius:5px;}"
                        "QSlider::handle:horizontal{"
-                       "height:20px;width:20;background:rgb(255, 128, 0);border-radius:10px;margin:-7px -7px;}");
+                       "height:20px;width:20;background:rgb(255, 128, 0);border-radius:10px;margin:-5px -5px;}");
 
     styleVector.append("QComboBox {background-color: black;color: white;border: 1px solid white ;border-radius: 5px;padding: 5px;}"
 "QComboBox:hover {border: 1px solid white;}"
@@ -639,14 +648,14 @@ void MainWindow::addStyle()
                          "border-radius:14px;max-height:25px;max-width:25px;min-height:25px;min-width:25px;}");
 
     styleWhiteBtn.append("QSlider::groove:horizontal{"
-                       "height:10px;width:420;background:darkGray;border-radius:5px;}"
+                       "height:10px;width:521;background:darkGray;border-radius:5px;}"
                        "QSlider::handle:horizontal{"
-                       "height:20px;width:20;background:rgb(255, 106, 37);border-radius:10px;margin:-7px -7px;}");
+                       "height:20px;width:20;background:rgb(255, 106, 37);border-radius:10px;margin:-5px -5px;}");
 
     styleWhiteBtn.append("QSlider::groove:horizontal{"
-                         "height:10px;width:170;background: darkGray;border-radius:5px;}"
+                         "height:10px;width:220;background: darkGray;border-radius:5px;}"
                          "QSlider::handle:horizontal{"
-                         "height:20px;width:20;background:rgb(255, 106, 37);border-radius:10px;margin:-7px -7px;}");
+                         "height:20px;width:20;background:rgb(255, 106, 37);border-radius:10px;margin:-5px -5px;}");
 
     styleWhiteBtn.append("QComboBox {background-color: rgb(220, 220, 220);color: black;border: 1px solid black ;border-radius: 5px;padding: 5px;}"
                        "QComboBox:hover {border: 1px solid black;}"
@@ -684,6 +693,7 @@ void MainWindow::updateTheme()
         ui->volumeSlid->setStyleSheet(styleWhiteBtn.at(8));
 
         ui->comboBox->setStyleSheet(styleVector.at(9));
+        ui->comboBox_2->setStyleSheet(styleVector.at(9));
     } else {
         ui->widget->setStyleSheet(styleVector.at(6));
 
@@ -712,6 +722,7 @@ void MainWindow::updateTheme()
         ui->volumeSlid->setStyleSheet(styleVector.at(10));
 
         ui->comboBox->setStyleSheet(styleVector.at(11));
+        ui->comboBox_2->setStyleSheet(styleVector.at(11));
     }
 }
 
@@ -796,6 +807,26 @@ void MainWindow::on_pushButton_3_clicked()
         msgB.setTextFormat(Qt::RichText);
         msgB.setText("CTRL+P=Pause  CTRL+B=Back<br>CTRL+M=Mute  CTRL+N=Next<br>CTRL+R=Replay  CTRL+F=Open File<br>CTRL+H=Window Help  CTRL+E=Mix");
         msgB.exec();
+    }
+}
+
+void MainWindow::on_comboBox_2_currentIndexChanged(int index)
+{
+    if(index-1<0){return;}
+    if(index-1>ui->comboBox_2->count()){return;}
+    const auto device = QMediaDevices::audioOutputs();
+    qDebug()<<device.at(index-1).description();
+    ao->setDevice(device.at(index-1));
+    updateDevice();
+}
+
+void MainWindow::updateDevice()
+{
+    ui->comboBox_2->clear();
+    ui->comboBox_2->addItem("Change device");
+    const auto device = QMediaDevices::audioOutputs();
+    for(const QAudioDevice &dev :device){
+        ui->comboBox_2->addItem(dev.description());
     }
 }
 

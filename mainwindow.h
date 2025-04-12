@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTextToSpeech>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -62,6 +63,9 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_comboBox_2_currentIndexChanged(int index);
+    void updateDevice();
+
 private:
     void UpdataDur(qint64 duration);
     Ui::MainWindow *ui;
@@ -86,5 +90,6 @@ private:
     QVector<QString>styleWhiteBtn;
 
     QMenu *file;
+    QTextToSpeech *speach;
 };
 #endif // MAINWINDOW_H

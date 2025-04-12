@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>217</height>
+    <width>557</width>
+    <height>204</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>465</width>
-    <height>217</height>
+    <width>557</width>
+    <height>204</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>465</width>
-    <height>217</height>
+    <width>557</width>
+    <height>204</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -54,20 +54,20 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>471</width>
-      <height>201</height>
+      <width>561</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>471</width>
-      <height>201</height>
+      <width>561</width>
+      <height>181</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>471</width>
-      <height>201</height>
+      <width>561</width>
+      <height>181</height>
      </size>
     </property>
     <property name="styleSheet">
@@ -105,7 +105,7 @@ color:rgb(255, 255, 255);
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>280</x>
+       <x>340</x>
        <y>60</y>
        <width>41</width>
        <height>31</height>
@@ -117,15 +117,15 @@ color:rgb(255, 255, 255);
       </font>
      </property>
      <property name="text">
-      <string/>
+      <string>14</string>
      </property>
     </widget>
     <widget class="QSlider" name="lenSlid">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>40</y>
-       <width>451</width>
+       <width>531</width>
        <height>20</height>
       </rect>
      </property>
@@ -153,7 +153,7 @@ margin:-7px -7px;
     <widget class="QLabel" name="trek">
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>450</x>
        <y>60</y>
        <width>41</width>
        <height>31</height>
@@ -202,7 +202,7 @@ color:rgb(255, 255, 255);
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>490</x>
        <y>60</y>
        <width>20</width>
        <height>31</height>
@@ -270,7 +270,7 @@ color:rgb(255, 255, 255);
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>380</x>
        <y>60</y>
        <width>29</width>
        <height>29</height>
@@ -297,7 +297,7 @@ min-width:25px;
     <widget class="QLabel" name="trek2">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>510</x>
        <y>60</y>
        <width>41</width>
        <height>31</height>
@@ -318,77 +318,11 @@ color:rgb(255, 255, 255);
       <string> 0</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>150</y>
-       <width>351</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QComboBox {
-    background-color: black;
-    color: white;
-    border: 1px solid white ;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-QComboBox:hover {
-    border: 1px solid white;
-}
-
-QComboBox QAbstractItemView {
-    background-color: black; 
-    selection-background-color:white;
-    selection-color:white;
-color: white;
-}
-
-QComboBox::drop-down {
-    width: 20px; 
-}</string>
-     </property>
-     <item>
-      <property name="text">
-       <string notr="true"/>
-      </property>
-     </item>
-    </widget>
-    <widget class="QPushButton" name="stop">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>150</y>
-       <width>84</width>
-       <height>34</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton
-{
-color:rgb(255, 255, 255);
-background-color:rgb(0, 0, 0);
-border: 2px solid rgb(255, 255, 255);
-solid: rgb(255, 255, 255);
-border-radius:15px;
-max-height:30px;
-max-width:80px;
-min-height:30px;
-min-width:80px;
-}</string>
-     </property>
-     <property name="text">
-      <string>replay</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>10</y>
+       <x>420</x>
+       <y>60</y>
        <width>14</width>
        <height>14</height>
       </rect>
@@ -411,7 +345,7 @@ min-width:80px;
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>450</width>
+       <width>541</width>
        <height>36</height>
       </rect>
      </property>
@@ -521,6 +455,27 @@ min-width:80px;
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="stop">
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+color:rgb(255, 255, 255);
+background-color:rgb(0, 0, 0);
+border: 2px solid rgb(255, 255, 255);
+solid: rgb(255, 255, 255);
+border-radius:15px;
+max-height:30px;
+max-width:80px;
+min-height:30px;
+min-width:80px;
+}</string>
+        </property>
+        <property name="text">
+         <string>replay</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
     <widget class="QSlider" name="volumeSlid">
@@ -528,7 +483,7 @@ min-width:80px;
       <rect>
        <x>90</x>
        <y>70</y>
-       <width>191</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
@@ -536,7 +491,6 @@ min-width:80px;
       <string notr="true">QSlider::groove:horizontal
 {
 height:10px;
-width:170;
 background:rgb(255, 255, 255);
 border-radius:5px;
 }
@@ -553,6 +507,84 @@ margin:-7px -7px;
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
+    <widget class="QComboBox" name="comboBox_2">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>140</y>
+       <width>211</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox {
+    background-color: black;
+    color: white;
+    border: 1px solid white ;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QComboBox:hover {
+    border: 1px solid white;
+}
+
+QComboBox QAbstractItemView {
+    background-color: black; 
+    selection-background-color:white;
+    selection-color:white;
+color: white;
+}
+
+QComboBox::drop-down {
+    width: 20px; 
+}</string>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true"/>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>311</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox {
+    background-color: black;
+    color: white;
+    border: 1px solid white ;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QComboBox:hover {
+    border: 1px solid white;
+}
+
+QComboBox QAbstractItemView {
+    background-color: black; 
+    selection-background-color:white;
+    selection-color:white;
+color: white;
+}
+
+QComboBox::drop-down {
+    width: 20px; 
+}</string>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true"/>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -560,7 +592,7 @@ margin:-7px -7px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>465</width>
+     <width>557</width>
      <height>22</height>
     </rect>
    </property>
